@@ -98,7 +98,11 @@ export default function AuthoringDialog({ show, onClose, imageUrl, analysisResul
               textAlign: 'center',
               marginBottom: '40px',
             }}>
-              <img src={imageUrl} height="400px"/>
+              <img style={{
+                maxHeight: '400px',
+                maxWidth: '100%',
+              }} 
+              src={imageUrl} />
             </Box>
           }
           {loading && <Grid xs display="flex" justifyContent="center" alignItems="center"><CircularProgress /></Grid>}
