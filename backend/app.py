@@ -34,12 +34,14 @@ def serve(path):
         return send_from_directory(app.static_folder, 'index.html')
 
 @app.route("/api/analyze/", methods=["POST"])
+@cross_origin()
 def analyze():
     image_data = base64.b64decode(request.json["image"])
     # image_link = '{"url": "https://scontent-sea1-1.cdninstagram.com/v/t51.2885-15/337568700_773996970820983_4509029153997030641_n.jpg?stp=dst-jpg_e35_s1080x1080&_nc_ht=scontent-sea1-1.cdninstagram.com&_nc_cat=103&_nc_ohc=v6bUxfPiV7IAX9Fq_lR&edm=AJ9x6zYBAAAA&ccb=7-5&ig_cache_key=MzA2NjQzNDQxNjE1MDA0NDQyMg%3D%3D.2-ccb7-5&oh=00_AfC5AC-1MGGpRB_WoEH7oUqy1Sns0-vxuv73Q53ohLbP4w&oe=64237AB2&_nc_sid=cff2a4"}'
     return image_analyze(image_data)
 
 @app.route("/api/generate_caption/", methods=["POST"])
+@cross_origin()
 def createCaption():
     analysis_result = request.json["analysis_result"]
     context = request.json["context"]
@@ -88,6 +90,7 @@ Provide the output using the template below:
 
 # Flask endpoint to receive an uploaded image and return the depth estimation
 @app.route('/estimate_depth', methods=['POST'])
+@cross_origin()
 def estimate_depth():
     image_data = base64.b64decode(request.json["image"])
     image = Image.open(BytesIO(image_data)).convert('RGB')
