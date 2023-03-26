@@ -1,0 +1,7 @@
+import os
+
+# Configuration constants
+CONFIDENCE_THRESHOLD = 0.2
+AZURE_SUBSCRIPTION_KEY = os.environ["AZURE_SUBSCRIPTION_KEY"]
+AZURE_RESOURCE = os.environ["AZURE_RESOURCE"]
+OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
