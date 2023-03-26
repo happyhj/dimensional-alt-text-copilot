@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-const API_PORT = '8000';
-const protocol = window.location.protocol;
-const hostname = window.location.hostname;
-const API_URL = `${protocol}//${hostname}:${API_PORT}/api`;
+const API_URL_PREFIX = `/api`;
 
 export type AnalysisResult = Record<string, any>;
 
@@ -14,7 +11,7 @@ export const analyzeImage = async (file: File): Promise<AnalysisResult> => {
     return new Promise((resolve, reject) => {
       reader.onload = () => {
         const base64 = reader.result?.toString().split(',')[1];
-        axios.post(`${API_URL}/analyze/`, { image: base64 }, { headers: { 'Content-Type': 'application/json' } })
+        axios.post(`${API_URL_PREFIX}/analyze/`, { image: base64 }, { headers: { 'Content-Type': 'application/json' } })
           .then((response) => resolve(response.data))
           .catch((error) => reject(error));
       };
@@ -35,7 +32,7 @@ export type GenerationResult = {
 export const generateCaption = async (analysisResult: AnalysisResult, context: string): Promise<GenerationResult> => {
   try {
     return new Promise((resolve, reject) => {
-      axios.post(`${API_URL}/generate_caption/`, { 'analysis_result': analysisResult, 'context': { context } }, { headers: { 'Content-Type': 'application/json' } })
+      axios.post(`${API_URL_PREFIX}/generate_caption/`, { 'analysis_result': analysisResult, 'context': { context } }, { headers: { 'Content-Type': 'application/json' } })
       .then((response) => {        
         console.log(response.data.image_caption);
         const generationResult: GenerationResult = JSON.parse('{' + response.data.image_caption.split('{')[1]);
