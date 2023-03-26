@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const API_PORT = '8000';
-const API_URL = `http://localhost:${API_PORT}/api`; // replace <port> with your desired port number
+const protocol = window.location.protocol;
+const hostname = window.location.hostname;
+const API_URL = `${protocol}//${hostname}:${API_PORT}/api`;
 
 export type AnalysisResult = Record<string, any>;
 
