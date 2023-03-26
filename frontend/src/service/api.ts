@@ -12,7 +12,7 @@ export const analyzeImage = async (file: File): Promise<AnalysisResult> => {
     return new Promise((resolve, reject) => {
       reader.onload = () => {
         const base64 = reader.result?.toString().split(',')[1];
-        axios.post(`${API_URL}/analyze` + '', { image: base64 }, { headers: { 'Content-Type': 'application/json' } })
+        axios.post(`${API_URL}/analyze/`, { image: base64 }, { headers: { 'Content-Type': 'application/json' } })
           .then((response) => resolve(response.data))
           .catch((error) => reject(error));
       };
@@ -33,7 +33,7 @@ export type GenerationResult = {
 export const generateCaption = async (analysisResult: AnalysisResult, context: string): Promise<GenerationResult> => {
   try {
     return new Promise((resolve, reject) => {
-      axios.post(`${API_URL}/generate_caption`, { 'analysis_result': analysisResult, 'context': { context } }, { headers: { 'Content-Type': 'application/json' } })
+      axios.post(`${API_URL}/generate_caption/`, { 'analysis_result': analysisResult, 'context': { context } }, { headers: { 'Content-Type': 'application/json' } })
       .then((response) => {        
         console.log(response.data.image_caption);
         const generationResult: GenerationResult = JSON.parse('{' + response.data.image_caption.split('{')[1]);
