@@ -5,7 +5,7 @@ import base64
 
 # Third-party imports
 from flask import Flask, request, jsonify, render_template, send_from_directory
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import numpy as np
 from PIL import Image
 import cv2
